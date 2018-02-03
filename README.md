@@ -35,6 +35,7 @@ unzip ngrok-stable-darwin-386.zip
 We then execute installing python and pip you can type in your terminal :
 ```
 make all
+make run
 ```
 It will start a web server on localhost:5000.
 
