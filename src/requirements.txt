@@ -1,8 +1,2 @@
-Fabric
-Flask-SQLAlchemy
-Flask-WTF
-WTForms
-coverage
-# ecdsa
-# paramiko
-# pycrypto
+flask
+github-webhook

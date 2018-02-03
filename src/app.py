@@ -1,11 +1,12 @@
 # ----------------------------------------------------------------------------#
 # Imports
 # ----------------------------------------------------------------------------#
+__name__ = "Github-CI"
 
+from github_webhook import Webhook
 from flask import Flask, render_template, request
 import logging
 from logging import Formatter, FileHandler
-from forms import *
 import os
 
 # ----------------------------------------------------------------------------#
@@ -14,7 +15,7 @@ import os
 
 app = Flask(__name__)
 app.config.from_object('config')
-
+webhook = Webhook(app)
 
 # ----------------------------------------------------------------------------#
 # Controllers.
@@ -25,13 +26,10 @@ def home():
     return "Hello world!"
 
 
-@app.route('/github_querying')
-def forgot():
-
+@webhook.hook()
+def on_push(data):
+    print("Got push with: {0}".format(data))
     return
-
-
-# Error handlers.
 
 
 @app.errorhandler(500)
