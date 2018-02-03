@@ -3,6 +3,7 @@
 
 # Log file
 *.log
+src/error.log
 
 # BlueJ files
 *.ctxt
@@ -24,4 +25,4 @@ hs_err_pid*
 #IDE
 *.xml
 *.iml
-.idea/*
+.idea/
