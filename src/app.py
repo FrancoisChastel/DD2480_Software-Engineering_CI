@@ -1,21 +1,24 @@
 # ----------------------------------------------------------------------------#
 # Imports
 # ----------------------------------------------------------------------------#
-__name__ = "Github-CI"
 
-from github_webhook import Webhook
-from flask import Flask, render_template, request
 import logging
-from logging import Formatter, FileHandler
 import os
+from logging import Formatter, FileHandler
+
+from flask import Flask
+from github_webhook import Webhook
+
+from compilation import compilation
+from downloader import downloader
 
 # ----------------------------------------------------------------------------#
 # App Config.
 # ----------------------------------------------------------------------------#
 
 app = Flask(__name__)
-app.config.from_object('config')
 webhook = Webhook(app)
+
 
 # ----------------------------------------------------------------------------#
 # Controllers.
@@ -28,7 +31,12 @@ def home():
 
 @webhook.hook()
 def on_push(data):
-    print("Got push with: {0}".format(data))
+    location = downloader.push_event(data)
+    result = compilation.to_compile(location)
+
+    for error in result:
+        print (error)
+
     return
 
 
@@ -42,6 +50,8 @@ def not_found_error(error):
     return "Error 404", 404
 
 
+app.debug = True
+
 if not app.debug:
     file_handler = FileHandler('error.log')
     file_handler.setFormatter(
@@ -52,11 +62,16 @@ if not app.debug:
     app.logger.addHandler(file_handler)
     app.logger.info('errors')
 
+
 # ----------------------------------------------------------------------------#
 # Launch.
 # ----------------------------------------------------------------------------#
 
-# Or specify port manually:
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+def main():
+    port = int(os.environ.get('PORT', 80))
+    app.run(port=port)
+
+
+# Or specify port manual:
+if __name__ == "__main__":
+    main()
