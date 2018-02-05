@@ -3,14 +3,18 @@ import urllib2
 import zipfile
 
 
-def push_event(data):
+def push_event(data, communication):
     owner = data["repository"]["owner"]["login"]
     repo = data["repository"]["name"]
     sha = data["head_commit"]["id"]
-    return download_commit(repository=repo, repository_owner=owner, sha=sha)
+    communication.author = owner
+    communication.commit = sha
+
+    download_commit(communication, repository=repo, repository_owner=owner, sha=sha)
 
 
-def download_commit(repository,
+def download_commit(communication,
+                    repository,
                     repository_owner,
                     sha,
                     based_url="https://www.github.com",
@@ -30,4 +34,5 @@ def download_commit(repository,
 
     os.remove(output)
 
-    return "/".join([filename, repository + "-" + sha])
+    communication.location = "/".join([filename, repository + "-" + sha])
+    communication.url = url
