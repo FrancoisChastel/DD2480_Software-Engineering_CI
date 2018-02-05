@@ -36,6 +36,16 @@ def on_push(data):
     downloader.push_event(data, result)
     compilation.to_compile(result)
 
+    if result.state == State.COMPILING_FAILED:
+        send_notification(result.commit + '\n' + result.author + '\n' + result.compiling_messages)
+        #do not run tests
+    elif result.state == State.COMPILING_WARNED:
+        send_notification(result.commit + '\n' + result.author + '\n' + result.compiling_messages)
+        #maybe run tests?
+    elif result.state == State.COMPILING_SUCCEED:
+        send_notification(result.commit + '\n' + result.author + '\n' + result.compiling_messages)
+        #run tests
+
     return
 
 
