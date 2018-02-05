@@ -9,6 +9,7 @@ from logging import Formatter, FileHandler
 from flask import Flask
 from github_webhook import Webhook
 
+import communication
 from compilation import compilation
 from downloader import downloader
 
@@ -31,11 +32,9 @@ def home():
 
 @webhook.hook()
 def on_push(data):
-    location = downloader.push_event(data)
-    result = compilation.to_compile(location)
-
-    for error in result:
-        print (error)
+    result = communication.Result()
+    downloader.push_event(data, result)
+    compilation.to_compile(result)
 
     return
 
