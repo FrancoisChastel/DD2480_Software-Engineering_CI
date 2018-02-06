@@ -1,5 +1,6 @@
 from enum import Enum
 
+#object holding information so that different features can easily communicate with one another
 
 class Result:
     __slot__ = ["state",
