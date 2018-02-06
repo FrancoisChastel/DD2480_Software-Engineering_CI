@@ -38,6 +38,16 @@ def on_push(data):
     compilation.to_compile(result)
     testing.testAll("test.log")
 
+    if result.state == State.COMPILING_FAILED:
+        send_notification(result.commit + '\n' + result.author + '\n' + result.compiling_messages)
+        #do not run tests
+    elif result.state == State.COMPILING_WARNED:
+        send_notification(result.commit + '\n' + result.author + '\n' + result.compiling_messages)
+        #maybe run tests?
+    elif result.state == State.COMPILING_SUCCEED:
+        send_notification(result.commit + '\n' + result.author + '\n' + result.compiling_messages)
+        #run tests
+
     return
 
 
