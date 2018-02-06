@@ -58,6 +58,11 @@ Python
 ## Authors
 This project was developed by : 
  * François Chastel : francois@chastel.co
- * Anu Devarmanai : 
+ * Anu Devarmanai : adevar2@illinois.edu
  * Brian Ritter : 
  * Jiayu Sun : 
+ 
+ ## Statement of Contributions
+ Feature #1 (Compilation) was done by François Chastel. 
+ Feature #2 (Testing) was done by Jiayu Sun and Anu Devarmanai. 
+ Feature #3 (Notification) was done by Brian Ritter. 
