@@ -2,7 +2,7 @@ import os
 import urllib2
 import zipfile
 
-#Pull information from the push event and fill the communication object with relevant info
+#Pull information from the commit and fill the communication object with relevant info
 
 def push_event(data, communication):
     owner = data["repository"]["owner"]["login"]
