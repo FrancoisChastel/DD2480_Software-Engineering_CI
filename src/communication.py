@@ -8,7 +8,8 @@ class Result:
                 "location",
                 "commit",
                 "author",
-                "url_repo"]
+                "url_repo",
+                "repository"]
 
     def __init__(self):
         pass
