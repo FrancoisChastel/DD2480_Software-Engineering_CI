@@ -6,7 +6,7 @@ from downloader import downloader
 from compilation import compilation
 from notification import notification
 
-def test_downloader():
+def test_downloader_1():
     assert 1 == 1 
 
 def test_compilation_1():
@@ -18,12 +18,12 @@ def test_compilation_1():
     print(c.compiling_messages)
  
     
-def test_compilation_2():
+def test_compilation_2(): #needs an assert statement
     commun = communication.Result()
     with pytest.raises(AttributeError):
         compilation.to_compile(commun)
 
-def test_notification():
+def test_notification_1():
     assert 3 == 3
 
 def TestAll(path):
