@@ -1,3 +1,4 @@
 flask
 github-webhook
 pylint
+pytest

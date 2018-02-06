@@ -12,6 +12,7 @@ from github_webhook import Webhook
 import communication
 from compilation import compilation
 from downloader import downloader
+from testing import testing
 
 # ----------------------------------------------------------------------------#
 # App Config.
@@ -35,6 +36,7 @@ def on_push(data):
     result = communication.Result()
     downloader.push_event(data, result)
     compilation.to_compile(result)
+    testing.testAll("test.log")
 
     return
 
