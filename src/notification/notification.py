@@ -1,7 +1,7 @@
 import email.message as e
 import smtplib
 
-
+#function to send email notification containing results of compilation and testing
 def send_notifications(message):
 	fromaddr = 'DD2480.CI@gmail.com'  # from addr
 	toaddrs = 'DD2480.CI@gmail.com'  # to addr
