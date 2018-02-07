@@ -63,35 +63,4 @@ def test_notification_3():
     ("111222"),
     ("222333")
     ])
-def test_notification_4(commit):        #paramter is the commit number from the communication structure,
-                                        #exactly as it was passed into the send_notification function
-    # contract : 
-    #Login to email server
-    username = 'DD2480.CI@gmail.com'    
-    password = 'DD2480CI'
-    mail = imaplib.IMAP4_SSL("imap.gmail.com")
-    mail.login(username,password)
-    mail.select('inbox')
 
-    #select mailbox
-    type, data = mail.search(None,'ALL')
-    mail_ids = data[0]
-
-    #select email
-    id_list = mail_ids.split()   
-    first_email_id = int(id_list[0])
-    latest_email_id = int(id_list[-1])
-
-    #cycle to find correct email
-    for i in range(latest_email_id,first_email_id, -1):
-        typ, data = mail.fetch(i, '(RFC822)' )
-
-        for response_part in data:
-            if isinstance(response_part, tuple):
-                resp = response_part[1]
-                msg = email.message_from_string(resp)
-                email_subject = msg['subject']
-                if commit not in email_subject:
-                    pass
-                else:
-                    assert "Commit " + commit + "results"  == email_subject     #asserting the subjuct contains the proper commit numbe
