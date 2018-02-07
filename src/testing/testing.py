@@ -14,10 +14,10 @@ def to_test(result):
         sys.stdout = test_result_buff = StringIO()
 
         pytest.main(args=str(args))
-        test_result_buff.close()
         sys.stdout = save_stdout
 
         test_result = test_result_buff.getvalue()
+        test_result_buff.close()
 
         if "error" in test_result:
             result.state = communication.State.TEST_FAILED
@@ -27,8 +27,6 @@ def to_test(result):
             result.state = communication.State.TEST_SUCCEED
 
         result.test_messages = test_result
-
-
     else:
         # Do not launch the test regarding the fact compiling failed
         pass
