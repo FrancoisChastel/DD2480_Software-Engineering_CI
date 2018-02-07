@@ -7,7 +7,9 @@ def push_event(data, communication):
     owner = data["repository"]["owner"]["login"]
     repo = data["repository"]["name"]
     sha = data["head_commit"]["id"]
-    communication.author = owner
+    author = data["head_commit"]["author"]["username"]
+    communication.owner = owner
+    communication.author = author
     communication.commit = sha
     communication.url_repo = "https://www.github.com"
     communication.repository = repo
@@ -15,13 +17,14 @@ def push_event(data, communication):
 
 
 def download_commit(communication):
-    url = "/".join([communication.url_repo, communication.author, communication.repository, "archive",
-                    communication.commit + ".zip"])
+    communication.url_repo = "/".join(
+        [communication.url_repo, communication.owner, communication.repository, "archive",
+         communication.commit + ".zip"])
 
-    filename = ''.join(sha)
+    filename = ''.join(communication.commit)
     output = os.path.basename("/".join([filename + ".zip"]))
 
-    response = urllib2.urlopen(url)
+    response = urllib2.urlopen(communication.url_repo)
 
     with open(output, 'wb') as local_file:
         local_file.write(response.read())
@@ -33,4 +36,3 @@ def download_commit(communication):
     os.remove(output)
 
     communication.location = "/".join([filename, communication.repository + "-" + communication.commit])
-    communication.url = url
