@@ -10,7 +10,7 @@ from compilation import compilation
 from notification import notification
 
 def test_downloader_1():
-    # contract : download_commit enable to throw an AttributeError when parameter contains nothing
+    # contract : download_commit enable to throw an AttributeError when parameter is empty
     c = communication.Result()
     with pytest.raises(AttributeError): #assert when not get an AttributeError
         downloader.download_commit(c)
@@ -42,17 +42,20 @@ def test_notification_1():
         m = notification.get_message(c)
 
 def test_notification_2():
-    # contract : get_message enable to return nothing when r.state equals something else
+    # contract : get_message enable to return nothing when result state is 0, which is COMPILING_FAILED
     c = communication.Result()
     c.state = 0
     m = notification.get_message(c)
     assert not m
-
+    
+def test_notification_3(): 
+    # contract : get_message enable to return nothing when result state is a garbage value
+    c = communication.Result()
     c.state = 10
     m = notification.get_message(c)
     assert not m
 
-def test_notification_3():
+def test_notification_4():
     # contract : get_message enable to throw an AttributeError when r.state is right while other param. are null
     c = communication.Result()
     c.state = communication.State.TEST_SUCCEED
