@@ -45,7 +45,8 @@ def get_message(result):
                                             result.url_repo,
                                             result.test_messages)
     elif result.state == communication.State.TEST_SUCCEED:
-        message = configs.SCC_MESSAGE % (result.author,
+        message = configs.SCC_MESSAGE % (result.state,
+                                         result.author,
                                          result.commit,
                                          result.url_repo)
     elif result.state == communication.State.TEST_WARNED:
