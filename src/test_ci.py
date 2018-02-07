@@ -59,8 +59,4 @@ def test_notification_3():
     with pytest.raises(AttributeError): #assert when not get an AttributeError
         m = notification.get_message(c)
 
-@pytest.mark.parametrize("commit",[
-    ("111222"),
-    ("222333")
-    ])
 
