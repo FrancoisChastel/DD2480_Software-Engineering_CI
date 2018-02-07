@@ -2,6 +2,7 @@ import os
 import urllib2
 import zipfile
 
+#Pull information from the commit and fill the communication object with relevant info
 
 def push_event(data, communication):
     owner = data["repository"]["owner"]["login"]
@@ -14,7 +15,6 @@ def push_event(data, communication):
     communication.url_repo = "https://www.github.com"
     communication.repository = repo
     download_commit(communication)
-
 
 def download_commit(communication):
     communication.url_repo = "/".join(

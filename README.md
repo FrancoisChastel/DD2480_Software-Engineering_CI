@@ -63,6 +63,15 @@ This project was developed by :
  * Jiayu Sun : 
  
  ## Statement of Contributions
- Feature #1 (Compilation) was done by François Chastel. 
- Feature #2 (Testing) was done by Jiayu Sun and Anu Devarmanai. 
- Feature #3 (Notification) was done by Brian Ritter. 
+ * Feature #1 (Compilation) was done by François Chastel. 
+ * Feature #2 (Testing) was done by Jiayu Sun and Anu Devarmanai. 
+ * Feature #3 (Notification) was done by Brian Ritter. 
+ 
+ ## Compilation Feature
+ The complication feature was implemented using pylint in compilation.py. The compilation process is then tested in testing.py in the corresponding compilation unit tests. 
+ 
+ ## Testing Feature
+ The testing feature was implemented and tested using pytest. 
+ 
+ ## Notification Feature
+ The notification feature has been implemented by sending an email to the email address DD2480.CI@gmail.com with the message body containing information about the compilation and testing results. This feature was tested in testing.py in the corresponding unit test by checking if the email is sent correctly and contains the correct information. 
