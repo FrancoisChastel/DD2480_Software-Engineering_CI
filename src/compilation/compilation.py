@@ -9,9 +9,9 @@ def to_compile(result):
 
     result.compiling_messages = pylint_stdout.buf
 
-    if "error" in result.compiling_messages:
+    if ": error" in result.compiling_messages:
         result.state = communication.State.COMPILING_FAILED
-    elif "warning" in result.compiling_messages:
+    elif ": warning" in result.compiling_messages:
         result.state = communication.State.COMPILING_WARNED
     else:
         result.state = communication.State.COMPILING_SUCCEED
