@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from enum import Enum
 
 #object holding information so that different features can easily communicate with one another
@@ -9,6 +11,7 @@ class Result:
                 "location",
                 "commit",
                 "author",
+                "owner",
                 "url_repo",
                 "repository"]
 

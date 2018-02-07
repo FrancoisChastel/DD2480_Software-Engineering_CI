@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # ----------------------------------------------------------------------------#
 # Imports
 # ----------------------------------------------------------------------------#
@@ -9,9 +12,10 @@ from logging import Formatter, FileHandler
 from flask import Flask
 from github_webhook import Webhook
 
-import communication
+from communication import communication
 from compilation import compilation
 from downloader import downloader
+from notification import notification
 from testing import testing
 
 # ----------------------------------------------------------------------------#
@@ -36,19 +40,11 @@ def on_push(data):
     result = communication.Result()
     downloader.push_event(data, result)
     compilation.to_compile(result)
-    testing.test_all("test.log")
+    testing.to_test(result)
 
-    if result.state == State.COMPILING_FAILED:
-        send_notification(result.commit + '\n' + result.author + '\n' + result.compiling_messages)
-        # do not run tests
-    elif result.state == State.COMPILING_WARNED:
-        send_notification(result.commit + '\n' + result.author + '\n' + result.compiling_messages)
-        # maybe run tests?
-    elif result.state == State.COMPILING_SUCCEED:
-        send_notification(result.commit + '\n' + result.author + '\n' + result.compiling_messages)
-        # run tests
+    notification.send_notifications(result)
 
-    return
+    return "Check your e-mail to get the result of the CI", 200
 
 
 @app.errorhandler(500)
