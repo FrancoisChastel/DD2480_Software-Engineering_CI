@@ -45,6 +45,12 @@ We configure our Github repository:
 
 You can now try to push on this repository :)
 
+## How to Run Tests
+Type into terminal 
+'''
+pytest src/test_ci.py
+'''
+
 ## Quit the program
 We shutdown everything:
 * `Ctrl-C` in the ngrok terminal window
