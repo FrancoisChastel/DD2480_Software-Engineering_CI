@@ -46,7 +46,7 @@ def test_notification_2():
     c = communication.Result()
     c.state = 0
     m = notification.get_message(c)
-    assert not m
+    assert m
     
 def test_notification_3(): 
     # contract : get_message enable to return nothing when result state is a garbage value
