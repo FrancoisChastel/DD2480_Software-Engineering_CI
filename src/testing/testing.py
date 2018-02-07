@@ -9,7 +9,8 @@ import pytest
 
 def to_test(result):
     if result.state != communication.State.COMPILING_FAILED:
-        args = "/".join([result.location, "src", "test_ci.py"])
+#        args = "/".join([result.location, "src", "test_ci.py"])
+        args = ["test_ci.py"]
         save_stdout = sys.stdout
         sys.stdout = test_result_buff = StringIO()
 
