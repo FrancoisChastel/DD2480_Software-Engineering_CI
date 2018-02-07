@@ -42,17 +42,20 @@ def test_notification_1():
         m = notification.get_message(c)
 
 def test_notification_2():
-    # contract : get_message enable to return nothing when r.state equals something else
+    # contract : get_message enable to return nothing when r.state equals a meaningless value
     c = communication.Result()
-    c.state = 0
-    m = notification.get_message(c)
-    assert not m
-
     c.state = 10
     m = notification.get_message(c)
     assert not m
 
 def test_notification_3():
+    # contract : get_message enable to return nothing when result state is COMPILING_FAILED
+    c = communication.Result()
+    c.state = communication.State.COMPILING_FAILED
+    m = notification.get_message(c)
+    assert not m
+
+def test_notification_4():
     # contract : get_message enable to throw an AttributeError when r.state is right while other param. are null
     c = communication.Result()
     c.state = communication.State.TEST_SUCCEED
