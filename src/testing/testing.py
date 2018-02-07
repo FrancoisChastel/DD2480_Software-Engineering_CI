@@ -1,41 +1,34 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import sys
-
-import pytest
+from cStringIO import StringIO
 
 import communication
-from compilation import compilation
+import pytest
 
 
-def test_downloader_1():
-    assert 1 == 1
+def to_test(result):
+    if result.state != communication.State.COMPILING_FAILED:
+        args = "/".join([result.location, "src", "test_ci.py"])
+        save_stdout = sys.stdout
+        sys.stdout = test_result_buff = StringIO()
+
+        pytest.main(args=args)
+        test_result_buff.close()
+        sys.stdout = save_stdout
+
+        test_result = test_result_buff.getvalue()
+
+        if "error" in test_result:
+            result.state = communication.State.TEST_FAILED
+        elif "warning" in test_result:
+            result.state = communication.State.TEST_WARNED
+        else:
+            result.state = communication.State.TEST_SUCCEED
+
+        result.test_messages = test_result
 
 
-def test_compilation_1():
-    c = communication.Result()
-    compilation.to_compile(c)
-    assert c.state != 0, "Compilation failed"  # where is state updated?
-    if c.state == 2:
-        print("Compilation warning!")
-    print(c.compiling_messages)
-
-
-def test_compilation_2():  # needs an assert statement
-    commun = communication.Result()
-    with pytest.raises(AttributeError):
-        compilation.to_compile(commun)
-
-
-def test_notification_1():
-    assert 3 == 3
-
-
-def test_all(path):
-    saveout = sys.stdout
-    tout = open(path, 'w')
-    sys.stdout = tout
-
-    args = ['testing/testing.py']
-    pytest.main(args)
-
-    sys.stdout = saveout
-    tout.close()
+    else:
+        # Do not launch the test regarding the fact compiling failed
+        pass
