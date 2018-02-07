@@ -13,7 +13,7 @@ def to_test(result):
         save_stdout = sys.stdout
         sys.stdout = test_result_buff = StringIO()
 
-        pytest.main(args=args)
+        pytest.main(args=str(args))
         test_result_buff.close()
         sys.stdout = save_stdout
 
