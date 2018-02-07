@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from ..communication import communication
+import communication
 from pylint import epylint as lint
 
 

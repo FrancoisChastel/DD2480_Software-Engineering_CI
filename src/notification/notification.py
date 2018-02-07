@@ -4,7 +4,7 @@ import smtplib
 # -*- coding: utf-8 -*-
 import configs
 
-from ..communication import communication
+import communication
 
 
 def send_notifications(result):

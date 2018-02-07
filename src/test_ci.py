@@ -88,7 +88,8 @@ def test_notification_4(commit):        #paramter is the commit number from the 
 
         for response_part in data:
             if isinstance(response_part, tuple):
-                msg = email.message_from_string(response_part[1])
+                resp = response_part[1]
+                msg = email.message_from_string(resp)
                 email_subject = msg['subject']
                 if commit not in email_subject:
                     pass

@@ -1,4 +1,5 @@
 {
+  "test_ci.py": true, 
   "test_ci.py::test_downloader_1[]": true, 
   "test_ci.py::test_downloader_1[c.url_repo=\"https://www.github.com\"]": true, 
   "test_ci.py::test_notification_4": true
