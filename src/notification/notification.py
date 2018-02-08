@@ -48,7 +48,8 @@ def get_message(result):
         message = configs.SCC_MESSAGE % (result.state,
                                          result.author,
                                          result.commit,
-                                         result.url_repo)
+                                         result.url_repo,
+                                            result.test_messages)
     elif result.state == communication.State.TEST_WARNED:
         message = configs.WRN_CPL_MESSAGE % (result.state,
                                              result.author,
