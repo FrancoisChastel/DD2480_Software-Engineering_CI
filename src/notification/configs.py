@@ -30,4 +30,7 @@ WRN_CPL_MESSAGE = "Warning triggered while compiling and/or testing with error c
 SCC_MESSAGE = "Compilation and testing successfully made with code : %s!\n" \
               "\t* Commit author : %s\n" \
               "\t* Commit id     : %s\n" \
-              "\t* Source url    : %s\n"
+              "\t* Source url    : %s\n"\
+                  "==================================================================\n" \
+                  "\t* Tester logs : \n" \
+                  "%s\n"
