@@ -13,24 +13,28 @@ def send_notifications(result):
     :param result: communication-object (see communication.py) that can hold all the information about the process
     :return: True once the mail sent
     """
+    #Retrieving the response from system tests to send
     message = get_message(result)
 
-    fromaddr = 'DD2480.CI@gmail.com'  # from addr
-    toaddrs = 'DD2480.CI@gmail.com'  # to addr
+    #can be changed: Email to send from and email to send to
+    fromaddr = 'DD2480.CI@gmail.com'
+    toaddrs = 'DD2480.CI@gmail.com'
 
-    m = e.Message()  # setting up message to send
+    # setting up message fields
+    m = e.Message()
     m['From'] = "DD2480.CI@gmail.com"
     m['To'] = "DD2480.CI@gmail.com"
     m['Subject'] = "Compilation and Test results"
     m.set_payload(message)
 
-    username = 'DD2480.CI@gmail.com'  # log into smtp
+    #logging into smtp server and sending mail
+    username = 'DD2480.CI@gmail.com'
     password = 'DD2480CI'
-    server = smtplib.SMTP('smtp.gmail.com:587')  # init smtp server
-    server.ehlo()
-    server.starttls()
-    server.login(username, password)
-    server.sendmail(fromaddr, toaddrs, m.as_string())
+    server = smtplib.SMTP('smtp.gmail.com:587')         #log into smtp
+    server.ehlo()                                       #setting up server communication
+    server.starttls()                                   #start tls for secure connection
+    server.login(username, password)                    #log into email account
+    server.sendmail(fromaddr, toaddrs, m.as_string())   #sending email
     server.quit()
 
     return True
@@ -44,25 +48,26 @@ def get_message(result):
     """
     message = ""
 
-    if result.state == communication.State.COMPILING_FAILED:
+    #check state of input to retrieve correct messages and information
+    if result.state == communication.State.COMPILING_FAILED:            #failed compilation
         message = configs.ER_CPL_MESSAGE % (result.state,
                                             result.author,
                                             result.commit,
                                             result.url_repo,
                                             result.compiling_messages)
-    elif result.state == communication.State.TEST_FAILED:
+    elif result.state == communication.State.TEST_FAILED:               #failed test(s)
         message = configs.ER_TST_MESSAGE % (result.state,
                                             result.author,
                                             result.commit,
                                             result.url_repo,
                                             result.test_messages)
-    elif result.state == communication.State.TEST_SUCCEED:
+    elif result.state == communication.State.TEST_SUCCEED:              #passed all tests
         message = configs.SCC_MESSAGE % (result.state,
                                          result.author,
                                          result.commit,
                                          result.url_repo,
                                             result.test_messages)
-    elif result.state == communication.State.TEST_WARNED:
+    elif result.state == communication.State.TEST_WARNED:               #test(s) warning
         message = configs.WRN_CPL_MESSAGE % (result.state,
                                              result.author,
                                              result.commit,
