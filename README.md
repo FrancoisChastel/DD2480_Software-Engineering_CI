@@ -81,4 +81,4 @@ This project was developed by :
  The testing feature was implemented and tested using pytest in test_ci.py. 
  
  ## Notification Feature
- The notification feature has been implemented by sending an email to the email address DD2480.CI@gmail.com with the message body containing information about the compilation and testing results. This feature was tested in test_ci.py in the corresponding unit test by checking if the email is sent correctly and contains the correct information. 
+ The notification feature has been implemented by sending an email to the email address DD2480.CI@gmail.com with the message body containing information about the compilation and testing results (specifically state of compilation/tests, Author of the commit, commit number, repo URL, and compiling messages). This feature was tested in test_ci.py in the corresponding unit test by checking if the email is sent correctly and contains the correct information. 
