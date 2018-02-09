@@ -3,6 +3,8 @@
 import communication
 import pytest
 import urllib2
+import imaplib
+import email
 from compilation import compilation
 from downloader import downloader
 from notification import notification
@@ -69,44 +71,41 @@ def test_notification_3():
 #        m = notification.get_message(c)
 
 
-    # TO FIX
-    # WORKS WHEN RUN ALONE, BUT NOT WHEN RUNNING WITH PYTEST
-    # def test_notification_5():
-    #    # contract: email sent contains all fields set from result structure
-    #
-    ## populate result structure
-    # c = communication.Result()
-    # c.state = 0
-    # c.author = 'Brian'
-    # c.commit = 'test_commit_number'
-    # c.url_repo = 'www.test.com'
-    # c.compiling_messages = 'fail'
+def test_notification_5():
+    # contract: email sent contains all fields set from result structure
+    
+    # populate result structure
+    c = communication.Result()
+    c.state = 0
+    c.author = 'Brian'
+    c.commit = 'test_commit_number'
+    c.url_repo = 'www.test.com'
+    c.compiling_messages = 'fail'
 
-    # send email
-    #notification.send_notifications(c)
+    #send email
+    notification.send_notifications(c)
 
-    # Login to email server
-    # username = 'DD2480.CI@gmail.com'
-    # password = 'DD2480CI'
-    # mail = imaplib.IMAP4_SSL("imap.gmail.com")
-    # mail.login(username, password)
-    #mail.select('inbox')
+    #Login to email server
+    username = 'DD2480.CI@gmail.com'
+    password = 'DD2480CI'
+    mail = imaplib.IMAP4_SSL("imap.gmail.com")
+    mail.login(username, password)
+    mail.select('inbox')
 
-    # select mailbox
-    # type, data = mail.search(None, 'ALL')
-    #mail_ids = data[0]
+    #select mailbox
+    type, data = mail.search(None, 'ALL')
+    mail_ids = data[0]
 
-    # select email
-    # id_list = mail_ids.split()
-    #latest_email_id = int(id_list[-1])
+    #select email
+    id_list = mail_ids.split()
+    latest_email_id = int(id_list[-1])
 
-    # check for all fields
+    #check for all fields
+    typ, data = mail.fetch(latest_email_id, '(RFC822)')
+    if isinstance(data[0], tuple):
 
-    # typ, data = mail.fetch(latest_email_id, '(RFC822)')
-    #if isinstance(data[0], tuple):
-
-    # resp = data[0][1]
-    #   msg = email.message_from_string(resp)
-    #   msg = str(msg)
-    # assert msg.find('Brian') != -1 and msg.find('test_commit_number') != -1 and msg.find('www.test.com') != -1 and \
-    #       msg.find('fail') != -1 and msg.find('COMPILING_FAILED') != -1
+        resp = data[0][1]
+        msg = email.message_from_string(resp)
+        msg = str(msg)
+        assert msg.find('Brian') != -1 and msg.find('test_commit_number') != -1 and msg.find('www.test.com') != -1 and \
+              msg.find('fail') != -1 and msg.find('0') != -1
