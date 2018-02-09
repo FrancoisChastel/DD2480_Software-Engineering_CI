@@ -34,8 +34,8 @@ unzip ngrok-stable-darwin-386.zip
 
 We then execute installing python and pip you can type in your terminal :
 ```
-make all
-make run
+sudo make all
+sudo make run
 ```
 It will start a web server on localhost:5000.
 
@@ -48,7 +48,8 @@ You can now try to push on this repository :)
 ## How to Run Tests
 Type into terminal 
 ```
-pytest src/test_ci.py
+sudo make all
+sudo make test
 ```
 
 ## Quit the program

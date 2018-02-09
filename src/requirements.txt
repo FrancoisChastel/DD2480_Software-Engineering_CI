@@ -2,3 +2,13 @@ flask
 github-webhook
 pylint
 pytest
+argparse
+logging
+os
+argparse
+logging
+email
+smtplib
+cStringIO
+urllib2
+zipfile
