@@ -10,6 +10,9 @@ def to_compile(result):
     :param result: communication-object (see communication.py) that can hold all the information about the process
     :return: N/A
     """
+    if result.location == "":
+        raise ValueError("Non-valid location for compiling")
+
     (pylint_stdout, pylint_stderr) = lint.py_run("/".join([result.location, "src"]), return_std=True)
 
     result.compiling_messages = pylint_stdout.buf

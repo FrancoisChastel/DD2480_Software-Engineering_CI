@@ -48,30 +48,39 @@ def get_message(result):
     """
     message = ""
 
+    state = result.state
+
+    if not isinstance(state, communication.State):
+        if state in [0, 1, 2, 3, 4, 5]:
+            state = communication.State(state)
+        else:
+            raise ValueError("The state {0} is not recognized".format(state))
+
     #check state of input to retrieve correct messages and information
-    if result.state == communication.State.COMPILING_FAILED:            #failed compilation
+    if state == communication.State.COMPILING_FAILED:  # failed compilation
         message = configs.ER_CPL_MESSAGE % (result.state,
                                             result.author,
                                             result.commit,
                                             result.url_repo,
                                             result.compiling_messages)
-    elif result.state == communication.State.TEST_FAILED:               #failed test(s)
+    elif state == communication.State.TEST_FAILED:  # failed test(s)
         message = configs.ER_TST_MESSAGE % (result.state,
                                             result.author,
                                             result.commit,
                                             result.url_repo,
                                             result.test_messages)
-    elif result.state == communication.State.TEST_SUCCEED:              #passed all tests
+    elif state == communication.State.TEST_SUCCEED:  # passed all tests
         message = configs.SCC_MESSAGE % (result.state,
                                          result.author,
                                          result.commit,
                                          result.url_repo,
                                             result.test_messages)
-    elif result.state == communication.State.TEST_WARNED:               #test(s) warning
+    elif state == communication.State.TEST_WARNED:  # test(s) warning
         message = configs.WRN_CPL_MESSAGE % (result.state,
                                              result.author,
                                              result.commit,
                                              result.url_repo,
                                              result.compiling_messages, result.test_messages)
-
+    else:
+        raise ValueError("The state {0} is not managed by the notification system".format(state))
     return message

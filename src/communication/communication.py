@@ -19,7 +19,15 @@ class Result:
                 "repository"]
 
     def __init__(self):
-        pass
+        self.state = -1
+        self.compiling_messages = ""
+        self.test_messages = ""
+        self.location = ""
+        self.commit = ""
+        self.author = ""
+        self.owner = ""
+        self.url_repo = ""
+        self.repository = ""
 
 
 class State(Enum):
