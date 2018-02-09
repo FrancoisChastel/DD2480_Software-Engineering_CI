@@ -1,13 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import sys
-from cStringIO import StringIO
 
 import communication
 import pytest
+from cStringIO import StringIO
 
 
 def to_test(result):
+    """
+    Launch the src/test_ci.py at the given location inside the communication object
+    :param result: communication-object (see communication.py) that can hold all the information about the process
+    :return: if the test has been launched or not
+    """
     if result.state != communication.State.COMPILING_FAILED:
         args = "/".join([result.location, "src", "test_ci.py"])
         save_stdout = sys.stdout
@@ -27,6 +32,6 @@ def to_test(result):
             result.state = communication.State.TEST_SUCCEED
 
         result.test_messages = test_result
+        return True
     else:
-        # Do not launch the test regarding the fact compiling failed
-        pass
+        return False

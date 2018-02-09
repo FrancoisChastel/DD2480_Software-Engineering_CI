@@ -5,6 +5,9 @@ from enum import Enum
 #object holding information so that different features can easily communicate with one another
 
 class Result:
+    """
+    Communication object that allow all the packages to communicate with each other
+    """
     __slot__ = ["state",
                 "compiling_messages",
                 "test_messages",

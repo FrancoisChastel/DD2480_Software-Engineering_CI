@@ -8,6 +8,11 @@ import communication
 
 
 def send_notifications(result):
+    """
+    Function that will send by e-mail a notification of the state of the testing and compiling process
+    :param result: communication-object (see communication.py) that can hold all the information about the process
+    :return: True once the mail sent
+    """
     message = get_message(result)
 
     fromaddr = 'DD2480.CI@gmail.com'  # from addr
@@ -28,8 +33,15 @@ def send_notifications(result):
     server.sendmail(fromaddr, toaddrs, m.as_string())
     server.quit()
 
+    return True
+
 
 def get_message(result):
+    """
+    Function that allow you get a string that could be sent as notification with all the useful information
+    :param result: communication-object (see communication.py) that can hold all the information about the process
+    :return: a string holding the message that need to be sent
+    """
     message = ""
 
     if result.state == communication.State.COMPILING_FAILED:

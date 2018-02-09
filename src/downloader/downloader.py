@@ -1,10 +1,16 @@
 import os
-import urllib2
 import zipfile
 
-#Pull information from the commit and fill the communication object with relevant info
+import urllib2
+
 
 def push_event(data, communication):
+    """
+    function that allows you to hold a push_event with a useful json
+    :param data: a dictionary that holds all the revelant information (please see API.md)
+    :param communication: communication-object (see communication.py) that can hold all the information about the process
+    :return: N/A
+    """
     owner = data["repository"]["owner"]["login"]
     repo = data["repository"]["name"]
     sha = data["head_commit"]["id"]
@@ -17,6 +23,11 @@ def push_event(data, communication):
     download_commit(communication)
 
 def download_commit(communication):
+    """
+    Download the zip of the commit concerned by the testing/compiling process and unzip it
+    :param communication: communication-object (see communication.py) that can hold all the information about the process
+    :return: N/A
+    """
     communication.url_repo = "/".join(
         [communication.url_repo, communication.owner, communication.repository, "archive",
          communication.commit + ".zip"])
