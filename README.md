@@ -66,7 +66,7 @@ Python
 This project was developed by : 
  * François Chastel : francois@chastel.co
  * Anu Devarmanai : adevar2@illinois.edu
- * Brian Ritter : 
+ * Brian Ritter : bmritt@gmail.com
  * Jiayu Sun : 
  
  ## Statement of Contributions
