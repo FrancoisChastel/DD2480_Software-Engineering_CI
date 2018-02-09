@@ -82,7 +82,8 @@ def main():
 
 
 def test():
-    pytest.main(args="src/test_ci.py")
+    arg = ["src/test_ci.py"]
+    pytest.main(args=arg)
 
 
 if __name__ == "__main__":
