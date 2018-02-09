@@ -7,8 +7,10 @@
 
 import logging
 import os
+import argparse
 from logging import Formatter, FileHandler
 
+import pytest
 from flask import Flask
 from github_webhook import Webhook
 
@@ -79,6 +81,26 @@ def main():
     app.run(port=port)
 
 
-# Or specify port manual:
+def test():
+    pytest.main(args="src/test_ci.py")
+
+
 if __name__ == "__main__":
-    main()
+
+    parser = argparse.ArgumentParser(description='Launch a CI that catch the GitHub webhook (see README).')
+    parser.add_argument('--test', help='execute the test of the CI',
+                        dest='testing', action='store_true', default=False)
+    parser.add_argument('--run', help='run the CI',
+                        dest='running', action='store_true', default=False)
+
+    args = parser.parse_args()
+
+    if args.running and not args.testing:
+        main()
+    elif args.testing and not args.running:
+        test()
+    elif not args.testing and not args.running:
+        print ("ERROR - please try --help")
+    else:
+        print ("ERROR - You need to chose between running and testing")
+

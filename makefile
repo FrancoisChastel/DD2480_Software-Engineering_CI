@@ -5,10 +5,10 @@ all:
 		@pip install -r src/requirements.txt
 
 test:
-		@echo "Nothing to do"
+		@python src/app.py --test
 
 run:
-		@python src/app.py
+		@python src/app.py --run
 
 clean:
 		@rm -r bin/
