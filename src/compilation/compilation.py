@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import os
 import communication
 from pylint import epylint as lint
 
@@ -13,7 +14,15 @@ def to_compile(result):
     if result.location == "":
         raise ValueError("Non-valid location for compiling")
 
-    (pylint_stdout, pylint_stderr) = lint.py_run("/".join([result.location, "src"]), return_std=True)
+    path = "/".join([result.location, "src"])
+
+    try:
+        f = open(path)
+        f.close()
+    except IOError:
+        raise IOError("File is not accessible")
+
+    (pylint_stdout, pylint_stderr) = lint.py_run(path, return_std=True)
 
     result.compiling_messages = pylint_stdout.buf
 

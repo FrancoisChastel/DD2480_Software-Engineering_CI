@@ -11,9 +11,9 @@ from notification import notification
 
 
 def test_downloader_1():
-    # contract : download_commit enable to throw an AttributeError when parameter is empty
+    # contract : download_commit enable to throw a ValueError when parameter is empty
     c = communication.Result()
-    with pytest.raises(ValueError):  # assert when not get an AttributeError
+    with pytest.raises(ValueError):  # assert when not get a ValueError
         downloader.download_commit(c)
 
 
@@ -29,16 +29,24 @@ def test_downloader_2():
 
 
 def test_compilation_1():
-    # contract : to_compile enable to throw an AttributeError when parameter contains nothing
+    # contract : to_compile enable to throw a ValueError when parameter contains nothing
     c = communication.Result()
-    with pytest.raises(ValueError):  # assert when not get an AttributeError
+    with pytest.raises(ValueError):  # assert when not get a ValueError
+        compilation.to_compile(c)
+
+
+def test_compilation_2():
+    # contract : to_compile enable to throw an IOError when the location is wrong
+    c = communication.Result()
+    c.location = "nowhere"
+    with pytest.raises(IOError):  # assert when not get an IOError
         compilation.to_compile(c)
 
 
 def test_notification_1():
-    # contract : get_message enable to throw an AttributeError when parameter contains nothing
+    # contract : get_message enable to throw a ValueError when parameter contains nothing
     c = communication.Result()
-    with pytest.raises(ValueError):  # assert when not get an AttributeError
+    with pytest.raises(ValueError):  # assert when not get a ValueError
         notification.get_message(c)
 
 
@@ -54,24 +62,14 @@ def test_notification_2():
 
 
 def test_notification_3():
-    # contract : get_message enable to return nothing when result state is a garbage value
+    # contract : get_message enable to raise a ValueError when result state is a garbage value
     c = communication.Result()
     c.state = 10
-    with pytest.raises(ValueError):  # assert when not get an AttributeError
+    with pytest.raises(ValueError):  # assert when not get a ValueError
         m = notification.get_message(c)
 
 
-# TO FIX
-
-# def test_notification_4():
-    # contract : get_message enable to throw an AttributeError when r.state is right while other param. are null
-#    c = communication.Result()
-#    c.state = communication.State.TEST_SUCCEED
-#    with pytest.raises(AttributeError): #assert when not get an AttributeError
-#        m = notification.get_message(c)
-
-
-def test_notification_5():
+def test_notification_4():
     # contract: email sent contains all fields set from result structure
     
     # populate result structure
