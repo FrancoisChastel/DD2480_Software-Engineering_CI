@@ -67,7 +67,7 @@ This project was developed by :
  * François Chastel : francois@chastel.co
  * Anu Devarmanai : adevar2@illinois.edu
  * Brian Ritter : bmritt@gmail.com
- * Jiayu Sun : 
+ * Jiayu Sun : ucassjy@gmail.com
  
  ## Statement of Contributions
  * Feature #1 (Compilation) was done by François Chastel. 
