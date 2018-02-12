@@ -43,6 +43,12 @@ def test_compilation_2():
         compilation.to_compile(c)
 
 
+def test_compilation_3():
+    #contract : check that compilation state is not FAILED
+    c = communication.Result()
+    assert c.state != communication.State.COMPILING_FAILED
+    
+
 def test_notification_1():
     # contract : get_message enable to throw a ValueError when parameter contains nothing
     c = communication.Result()
