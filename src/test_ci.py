@@ -47,7 +47,14 @@ def test_compilation_3():
     #contract : check that compilation state is not FAILED
     c = communication.Result()
     assert c.state != communication.State.COMPILING_FAILED
-    
+
+def test_compilation_4():
+    #contract : check that compilation has not failed, and notify if warning
+    c = communication.Result()
+    c_state = c.state
+    assert c_state != communication.State.COMPILING_FAILED
+    if c_state == communication.State.COMPILING_WARNED:
+        print("Compilation Warning!")    
 
 def test_notification_1():
     # contract : get_message enable to throw a ValueError when parameter contains nothing
