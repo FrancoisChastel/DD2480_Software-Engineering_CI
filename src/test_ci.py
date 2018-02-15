@@ -37,7 +37,7 @@ def test_compilation_1():
 def test_compilation_3():
     #contract : check that compilation state is not FAILED
     c = communication.Result()
-    assert c.state != communication.State.COMPILING_FAILED
+    assert c.state == communication.State.COMPILING_FAILED
 
 def test_compilation_4():
     #contract : check that compilation has not failed, and notify if warning
