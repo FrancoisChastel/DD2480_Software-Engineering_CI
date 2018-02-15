@@ -15,13 +15,7 @@ def to_compile(result):
         raise ValueError("Non-valid location for compiling")
 
     path = "/".join([result.location, "src"])
-
-    try:
-        f = open(path)
-        f.close()
-    except IOError:
-        raise IOError("File is not accessible")
-
+    print(path)
     (pylint_stdout, pylint_stderr) = lint.py_run(path, return_std=True)
 
     result.compiling_messages = pylint_stdout.buf

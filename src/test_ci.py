@@ -34,15 +34,6 @@ def test_compilation_1():
     with pytest.raises(ValueError):  # assert when not get a ValueError
         compilation.to_compile(c)
 
-
-def test_compilation_2():
-    # contract : to_compile enable to throw an IOError when the location is wrong
-    c = communication.Result()
-    c.location = "nowhere"
-    with pytest.raises(IOError):  # assert when not get an IOError
-        compilation.to_compile(c)
-
-
 def test_compilation_3():
     #contract : check that compilation state is not FAILED
     c = communication.Result()
